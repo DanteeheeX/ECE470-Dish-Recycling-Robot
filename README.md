@@ -11,3 +11,8 @@ robot to come. The second is when customers wave their hands to stop the patroll
 
 Our robot dedicates to save human labor in the restaurant. This robot can also be used with dish
 serving robot at the same time.
+
+###############################
+
+Project Update 2
+The Coppelia Code is used to simulate the robot arm motion in working mode. The arm will move to several designated postion where plates and bowls are placed, and pick them up, pour wastes into bin, and put them into plates container. We use vaccum cup because we believe it will be more easier to simulate, but in real life it is likely to use different grippper to perfrom with same function.
