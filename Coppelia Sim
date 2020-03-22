@@ -50,6 +50,9 @@ function sysCall_threadmain()
         sim.rmlMoveToJointPositions(jointHandles,-1,currentVel,currentAccel,maxVel,maxAccel,maxJerk,targetPos5,targetVel)
         sim.wait(2)
         
+        sim.rmlMoveToJointPositions(jointHandles,-1,currentVel,currentAccel,maxVel,maxAccel,maxJerk,targetPos3,targetVel)
+        sim.wait(2)
+        
         -- Suction off
         sim.setIntegerSignal(vacuumCupName..'_active',0)
     
