@@ -1,0 +1,57 @@
+function sysCall_threadmain()
+    jointHandles={-1,-1,-1,-1,-1,-1}
+    for i=1,6,1 do
+        jointHandles[i]=sim.getObjectHandle('UR3_joint'..i)
+    end
+
+    -- Set-up some of the RML vectors:
+    vel=180
+    accel=40
+    jerk=80
+    currentVel={0,0,0,0,0,0,0}
+    currentAccel={0,0,0,0,0,0,0}
+    home={0,0,0,0,0,0}
+    maxVel={vel*math.pi/180,vel*math.pi/180,vel*math.pi/180,vel*math.pi/180,vel*math.pi/180,vel*math.pi/180}
+    maxAccel={accel*math.pi/180,accel*math.pi/180,accel*math.pi/180,accel*math.pi/180,accel*math.pi/180,accel*math.pi/180}
+    maxJerk={jerk*math.pi/180,jerk*math.pi/180,jerk*math.pi/180,jerk*math.pi/180,jerk*math.pi/180,jerk*math.pi/180}
+    targetVel={0,0,0,0,0,0}
+    
+    targetPos1={0,30*math.pi/180,0,60*math.pi/180,-90*math.pi/180,0}
+    targetPos2={0,90*math.pi/180,-45*math.pi/180,45*math.pi/180,-90*math.pi/180,0}
+    targetPos3={180*math.pi/180,30*math.pi/180,0,60*math.pi/180,-90*math.pi/180,0}
+    targetPos4={180*math.pi/180,30*math.pi/180,0,60*math.pi/180,-45*math.pi/180,0}
+    targetPos5={180*math.pi/180,90*math.pi/180,-45*math.pi/180,45*math.pi/180,-90*math.pi/180,0}
+    
+    vacuumCupName='BaxterVacuumCup#1'
+
+    while(true) do
+        -- Move to designated position
+        sim.rmlMoveToJointPositions(jointHandles,-1,currentVel,currentAccel,maxVel,maxAccel,maxJerk,targetPos1,targetVel)
+        sim.wait(2)
+        
+        -- Suction on
+        sim.setIntegerSignal(vacuumCupName..'_active',1)
+        
+        sim.rmlMoveToJointPositions(jointHandles,-1,currentVel,currentAccel,maxVel,maxAccel,maxJerk,targetPos2,targetVel)
+        sim.wait(2)
+        
+        sim.rmlMoveToJointPositions(jointHandles,-1,currentVel,currentAccel,maxVel,maxAccel,maxJerk,targetPos1,targetVel)
+        sim.wait(2)
+        
+        sim.rmlMoveToJointPositions(jointHandles,-1,currentVel,currentAccel,maxVel,maxAccel,maxJerk,targetPos3,targetVel)
+        sim.wait(2)
+        
+        sim.rmlMoveToJointPositions(jointHandles,-1,currentVel,currentAccel,maxVel,maxAccel,maxJerk,targetPos4,targetVel)
+        sim.wait(2)
+        
+        sim.rmlMoveToJointPositions(jointHandles,-1,currentVel,currentAccel,maxVel,maxAccel,maxJerk,targetPos3,targetVel)
+        sim.wait(2)
+        
+        sim.rmlMoveToJointPositions(jointHandles,-1,currentVel,currentAccel,maxVel,maxAccel,maxJerk,targetPos5,targetVel)
+        sim.wait(2)
+        
+        -- Suction off
+        sim.setIntegerSignal(vacuumCupName..'_active',0)
+    
+    end
+end
