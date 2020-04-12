@@ -23,13 +23,13 @@ function sysCall_threadmain()
     targetPos5={180*math.pi/180,90*math.pi/180,-45*math.pi/180,45*math.pi/180,-90*math.pi/180,0}
     
     vacuumCupName='BaxterVacuumCup#1'
-
+    sim.wait(10)
+    
     while(true) do
-        -- Move to designated position
+        
         sim.rmlMoveToJointPositions(jointHandles,-1,currentVel,currentAccel,maxVel,maxAccel,maxJerk,targetPos1,targetVel)
         sim.wait(2)
         
-        -- Suction on
         sim.setIntegerSignal(vacuumCupName..'_active',1)
         
         sim.rmlMoveToJointPositions(jointHandles,-1,currentVel,currentAccel,maxVel,maxAccel,maxJerk,targetPos2,targetVel)
@@ -50,11 +50,10 @@ function sysCall_threadmain()
         sim.rmlMoveToJointPositions(jointHandles,-1,currentVel,currentAccel,maxVel,maxAccel,maxJerk,targetPos5,targetVel)
         sim.wait(2)
         
+        sim.setIntegerSignal(vacuumCupName..'_active',0)
+        
         sim.rmlMoveToJointPositions(jointHandles,-1,currentVel,currentAccel,maxVel,maxAccel,maxJerk,targetPos3,targetVel)
         sim.wait(2)
-        
-        -- Suction off
-        sim.setIntegerSignal(vacuumCupName..'_active',0)
     
     end
 end
